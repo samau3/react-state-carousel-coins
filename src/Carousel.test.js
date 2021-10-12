@@ -2,6 +2,8 @@ import { render, fireEvent } from "@testing-library/react";
 import Carousel from "./Carousel";
 import TEST_IMAGES from "./_testCommon.js";
 
+/* Tests for Carousel Component */
+
 test("renders without crashing", function () {
   render(<Carousel
     photos={TEST_IMAGES}
@@ -83,6 +85,43 @@ it("works when you click on the left arrow", function() {
   ).toBeInTheDocument();
 });
 
+
+it("works that left arrow hidden on first image", function () {
+  const { container, debug } = render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing"
+    />
+  );
+
+  expect(
+    container.querySelector('.fa-chevron-circle-right')
+  ).toBeInTheDocument();
+  expect(
+    container.querySelector('.fa-chevron-circle-left')
+  ).not.toBeInTheDocument();
+});
+
+it("works that right arrow hidden on last image", function () {
+  const { container, debug } = render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing"
+    />
+  );
+
+  const rightArrow = container.querySelector(".fa-chevron-circle-right");
+  fireEvent.click(rightArrow);
+  fireEvent.click(rightArrow);
+
+  debug();
+  expect(
+    container.querySelector('.fa-chevron-circle-left')
+  ).toBeInTheDocument();
+  expect(
+    container.querySelector('.fa-chevron-circle-right')
+  ).not.toBeInTheDocument();
+});
 
 
 

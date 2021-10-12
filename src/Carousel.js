@@ -25,9 +25,18 @@ import Card from "./Card";
     setCurrCardIdx(currCardIdx + 1);
   }
 
+  // Decrements currCardIdx state by 1
   function goBack() {
     setCurrCardIdx(currCardIdx - 1);
   }
+
+  const showOrHideRight = (currCardIdx < total-1) 
+                      ? { visibility: "visible" } 
+                      : { visibility: "hidden" };
+
+  const showOrHideLeft = (currCardIdx !== 0) 
+                      ? { visibility: "visible" } 
+                      : { visibility: "hidden" } ;
 
   return (
     <div className="Carousel">
@@ -35,6 +44,7 @@ import Card from "./Card";
       <div className="Carousel-main">
         <i
           className="fas fa-chevron-circle-left fa-2x"
+          style={ showOrHideLeft }
           onClick={goBack}
         />
         <Card
@@ -45,6 +55,7 @@ import Card from "./Card";
         />
         <i
           className="fas fa-chevron-circle-right fa-2x"
+          style={ showOrHideRight }
           onClick={goForward}
         />
       </div>
